@@ -23,6 +23,7 @@ const API = "http://localhost:3000";
 class App extends React.Component {
   state = {
     user: {},
+    loggedIn: false,
   };
 
   // getTicker = () => {
@@ -38,6 +39,7 @@ class App extends React.Component {
     if (token) {
       this.persistUser(token);
     }
+    document.body.style.background = "#18191A";
   }
 
   persistUser = (token) => {
@@ -55,6 +57,7 @@ class App extends React.Component {
             user: {
               username,
             },
+            loggedIn: true,
           });
         }
       });
@@ -70,10 +73,11 @@ class App extends React.Component {
           id,
         },
         error: null,
+        loggedIn: true,
       });
       localStorage.setItem("token", token);
       localStorage.setItem("id", this.state.user.id);
-      history.push("/user");
+      history.push("/");
     } else if (data.error) {
       this.setState({
         error: data.error,
@@ -115,8 +119,10 @@ class App extends React.Component {
 
   handleLogout = () => {
     localStorage.clear();
-    this.setState({ user: {} });
-    history.push("/");
+    this.setState({
+      user: {},
+      loggedIn: false,
+    });
   };
 
   render() {
@@ -131,13 +137,21 @@ class App extends React.Component {
             <br />
             <Switch>
               <Route exact path="/">
-                <Home></Home>
+                <Home />
               </Route>
               <Route exact path="/login">
-                <Login handleLoginOrSignup={this.handleLogin}></Login>
+                {this.state.loggedIn ? (
+                  <Redirect to="/" />
+                ) : (
+                  <Login handleLoginOrSignup={this.handleLogin}></Login>
+                )}
               </Route>
               <Route exact path="/signup">
-                <Login handleLoginOrSignup={this.handleSignup}></Login>
+                {this.state.loggedIn ? (
+                  <Redirect to="/" />
+                ) : (
+                  <Login handleLoginOrSignup={this.handleSignup}></Login>
+                )}
               </Route>
             </Switch>
           </div>
