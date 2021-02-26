@@ -17,6 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home.js";
 import Navigation from "./components/Navigation.js";
 import Login from "./components/Login";
+import Portfolio from "./components/Portfolio";
 
 const API = "http://localhost:3000";
 
@@ -77,7 +78,6 @@ class App extends React.Component {
       });
       localStorage.setItem("token", token);
       localStorage.setItem("id", this.state.user.id);
-      history.push("/");
     } else if (data.error) {
       this.setState({
         error: data.error,
@@ -141,17 +141,26 @@ class App extends React.Component {
               </Route>
               <Route exact path="/login">
                 {this.state.loggedIn ? (
-                  <Redirect to="/" />
+                  <Redirect to="/portfolio" />
                 ) : (
-                  <Login handleLoginOrSignup={this.handleLogin}></Login>
+                  <Login
+                    ioo={"Username"}
+                    handleLoginOrSignup={this.handleLogin}
+                  ></Login>
                 )}
               </Route>
               <Route exact path="/signup">
                 {this.state.loggedIn ? (
-                  <Redirect to="/" />
+                  <Redirect to="/portfolio" />
                 ) : (
-                  <Login handleLoginOrSignup={this.handleSignup}></Login>
+                  <Login
+                    ioo={"New Username"}
+                    handleLoginOrSignup={this.handleSignup}
+                  ></Login>
                 )}
+              </Route>
+              <Route exact path="/portfolio">
+                <Portfolio></Portfolio>
               </Route>
             </Switch>
           </div>

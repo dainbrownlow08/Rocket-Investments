@@ -24,7 +24,9 @@ class Login extends React.Component {
               this.props.handleLoginOrSignup(e, this.state);
             }}
           >
-            <Form.Label style={{ color: "#C0C0C0" }}>Username</Form.Label>
+            <Form.Label style={{ color: "#E4E6EB" }}>
+              {this.props.ioo}
+            </Form.Label>
             <Form.Control
               onChange={this.handleChange}
               type="text"
@@ -37,7 +39,7 @@ class Login extends React.Component {
               }}
             />
             <br />
-            <Form.Label style={{ color: "#C0C0C0" }}>Password</Form.Label>
+            <Form.Label style={{ color: "#E4E6EB" }}>Password</Form.Label>
             <Form.Control
               onChange={this.handleChange}
               type="password"

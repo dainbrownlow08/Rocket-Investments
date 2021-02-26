@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.scatter-div {
+  background-color: #242526;
+  border-radius: 10px;
+  height: 420px;
+  width: 740px;
+}

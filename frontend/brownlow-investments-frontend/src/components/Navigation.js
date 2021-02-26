@@ -17,16 +17,16 @@ function Navigation(props) {
           {props.user.username == undefined ? (
             <Fragment>
               <br />
-              <LinkContainer style={{ color: "black" }} to="/login">
+              <LinkContainer style={{ color: "#fff" }} to="/login">
                 <Nav.Link>Login</Nav.Link>
               </LinkContainer>
-              <LinkContainer style={{ color: "black" }} to="/signup">
+              <LinkContainer style={{ color: "#fff" }} to="/signup">
                 <Nav.Link>Register</Nav.Link>
               </LinkContainer>
             </Fragment>
           ) : (
             <Fragment>
-              <LinkContainer style={{ color: "#C0C0C0" }} to="/">
+              <LinkContainer style={{ color: "#fff" }} to="/">
                 <Nav.Link onClick={props.handleLogout}>Log Out</Nav.Link>
               </LinkContainer>
             </Fragment>
