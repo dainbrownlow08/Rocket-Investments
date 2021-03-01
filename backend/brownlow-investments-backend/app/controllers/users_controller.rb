@@ -1,6 +1,6 @@
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :accounts]
 
   def show 
       user = User.find(params[:id])
@@ -15,6 +15,12 @@ class UsersController < ApplicationController
       else 
           render json: {error:'failed to create a user'}
       end
+  end
+
+  def accounts 
+    user = User.find(params[:id])
+    accounts = user.transactions.map{t => t.brokerage}.uniq
+    render json: accounts
   end
 
 
