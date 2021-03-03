@@ -1,6 +1,11 @@
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :accounts]
+  skip_before_action :authorized, only: [:create, :accounts, :index]
+
+  def index
+    users = User.all
+    render json: users
+  end
 
   def show 
       user = User.find(params[:id])
@@ -19,7 +24,7 @@ class UsersController < ApplicationController
 
   def accounts 
     user = User.find(params[:id])
-    accounts = user.transactions.map{t => t.brokerage}.uniq
+    accounts = user.accounts
     render json: accounts
   end
 

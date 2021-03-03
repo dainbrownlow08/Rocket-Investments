@@ -43,3 +43,103 @@
   height: 420px;
   width: 740px;
 }
+
+.pie-div {
+  background-color: #242526;
+  border-radius: 10px;
+  height: 420px;
+  width: 500px;
+}
+
+/* .account-div {
+  background-color: #242526;
+  border-radius: 10px;
+  height: 65px;
+  width: 740px;
+  margin-top: 10px;
+} */
+
+.data-container {
+  padding-left: 60px;
+  padding-right: 30px;
+}
+
+.form-div {
+  background-color: #242526;
+  border-radius: 10px;
+  height: 200px;
+  width: 1270px;
+  margin-bottom: 60px;
+  margin-left: 75px;
+}
+
+.account-div {
+  background-color: #242526;
+  border-radius: 10px;
+  height: 100px;
+  width: 1270px;
+  margin-bottom: 20px;
+  margin-left: 75px;
+}
+
+.tabs-div {
+  margin-left: 60px;
+  margin-right: 70px;
+}
+
+.tab {
+  background-color: #242526;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.ptab {
+  background-color: #242526;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.tab-text {
+  color: #b0b3b8;
+  font-size: x-small;
+}
+#account-tab {
+  background-color: #18191a;
+  text-align: center;
+}
+
+.accForm {
+  padding-top: 10px;
+  padding-left: 30px;
+}
+
+.accBtn {
+  padding-top: 32px;
+}
+
+.tFormTL {
+  padding-left: 44px;
+  padding-top: 15px;
+  padding-right: 30px;
+}
+
+.tFormBL {
+  padding-left: 44px;
+  padding-top: 15px;
+  padding-right: 30px;
+}
+
+.tFormTR {
+  padding-right: 42px;
+  padding-top: 15px;
+  padding-left: 12px;
+}
+
+.tCol1 {
+  padding-top: 47px;
+}
+
+.tCol2 {
+  padding-top: 47px;
+  margin-left: 8px;
+}

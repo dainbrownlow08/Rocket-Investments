@@ -53,10 +53,12 @@ class App extends React.Component {
       .then((resp) => resp.json())
       .then((data) => {
         if (data.username) {
-          const { username } = data;
+          const username = data["username"];
+          const id = data["id"];
           this.setState({
             user: {
               username,
+              id,
             },
             loggedIn: true,
           });
@@ -65,7 +67,6 @@ class App extends React.Component {
   };
 
   handleAuthResponse = (data) => {
-    console.log(history);
     if (data.username) {
       const { username, id, token } = data;
       this.setState({
@@ -160,7 +161,7 @@ class App extends React.Component {
                 )}
               </Route>
               <Route exact path="/portfolio">
-                <Portfolio></Portfolio>
+                <Portfolio user={this.state.user}></Portfolio>
               </Route>
             </Switch>
           </div>

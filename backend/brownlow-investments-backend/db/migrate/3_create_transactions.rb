@@ -5,8 +5,6 @@ class CreateTransactions < ActiveRecord::Migration[6.0]
       t.string :symbol
       t.string :bos
       t.float :quantity
-      t.string :brokerage
-
       t.timestamps
     end
   end
