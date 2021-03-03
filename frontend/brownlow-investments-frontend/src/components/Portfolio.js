@@ -65,6 +65,20 @@ class Portfolio extends React.Component {
     }
   };
 
+  postTransaction = (e, transaction) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/transactions", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(transaction),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  };
+
   render() {
     return (
       <div>
@@ -100,6 +114,7 @@ class Portfolio extends React.Component {
               getAccounts={this.getAccounts}
               accounts={this.state.accounts}
               user={this.props.user}
+              postTransaction={this.postTransaction}
             ></TransactionForm>
           </div>
         </Row>

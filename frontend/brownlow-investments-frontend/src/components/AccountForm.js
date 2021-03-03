@@ -34,7 +34,9 @@ class AccountForm extends React.Component {
           >
             <Row className="accForm">
               <Col>
-                <Form.Label style={{ color: "#C0C0C0" }}>Name</Form.Label>
+                <Form.Label style={{ color: "#C0C0C0" }}>
+                  New Account Brokerage
+                </Form.Label>
                 <Form.Control
                   onChange={(e) => this.onNameChange(e)}
                   type="text"

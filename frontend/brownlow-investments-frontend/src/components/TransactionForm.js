@@ -71,12 +71,21 @@ class TransactionForm extends React.Component {
     }
   };
 
+  createT = () => {
+    return {
+      symbol: this.state.symbol,
+      quantity: this.state.quantity,
+      account: parseInt(this.state.account),
+      bos: this.state.bos,
+    };
+  };
+
   render() {
     return (
       <Fragment>
         <Form
           onSubmit={(e) => {
-            this.props.submitOrder(e);
+            this.props.postTransaction(e, this.createT());
           }}
         >
           <Row>
