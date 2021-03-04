@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import key from "../keys.js";
 
 class TransactionForm extends React.Component {
   state = {
@@ -71,23 +72,29 @@ class TransactionForm extends React.Component {
     }
   };
 
-  createT = () => {
-    return {
-      symbol: this.state.symbol,
-      quantity: this.state.quantity,
-      account: parseInt(this.state.account),
-      bos: this.state.bos,
-    };
+  createT = (e) => {
+    e.preventDefault();
+    let tickerPrice = 0.0;
+    fetch(
+      `https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers/${this.state.symbol}?&apiKey=ijnvwxgPJOuMRmP4d7CwnSTy8sLpX1Lq`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        tickerPrice = res.ticker.lastQuote.P;
+        this.props.postTransaction({
+          symbol: this.state.symbol,
+          quantity: this.state.quantity,
+          account: parseInt(this.state.account),
+          bos: this.state.bos,
+          price: tickerPrice,
+        });
+      });
   };
 
   render() {
     return (
       <Fragment>
-        <Form
-          onSubmit={(e) => {
-            this.props.postTransaction(e, this.createT());
-          }}
-        >
+        <Form onSubmit={(e) => this.createT(e)}>
           <Row>
             <Col>
               <Row className="tFormTL">

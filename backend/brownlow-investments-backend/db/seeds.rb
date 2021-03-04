@@ -16,6 +16,3 @@ rh = Account.create(user_id: dain.id, name: "Robinhood - Individual")
 fd = Account.create(user_id: dain.id, name: "Fidelity - 401k")
 
 
-t1 = Transaction.create(account_id: rh.id, symbol: "TSLA", bos: "Bought", quantity: 5)
-t2 = Transaction.create(account_id: rh.id, symbol: "TSLA", bos: "Bought", quantity: 5)
-t3 = Transaction.create(account_id: rh.id, symbol: "TSLA", bos: "Sold", quantity: 5)

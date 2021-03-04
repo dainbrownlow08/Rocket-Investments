@@ -12,7 +12,10 @@ class Portfolio extends React.Component {
 
   componentDidMount() {
     this.getAccounts(localStorage);
+    this.getAccPlotPoints(localStorage);
   }
+
+  // TOGGLES
 
   toggleAccountDisplay = () => {
     let newAccountDisplay = !this.state.accountDisplay;
@@ -21,27 +24,7 @@ class Portfolio extends React.Component {
     });
   };
 
-  postAccount = (e, account) => {
-    e.preventDefault();
-    this.setState({
-      accountDisplay: false,
-    });
-    let newAccount = { ...account, user_id: this.props.user.id };
-    fetch("http://localhost:3000/accounts", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newAccount),
-    })
-      .then((res) => res.json())
-      .then((res) =>
-        this.setState({
-          accounts: [...this.state.accounts, res],
-        })
-      );
-  };
+  // GETS
 
   getAccounts = (i) => {
     if (i == undefined) {
@@ -65,8 +48,43 @@ class Portfolio extends React.Component {
     }
   };
 
-  postTransaction = (e, transaction) => {
+  getAccPlotPoints = (i) => {
+    let id = 0;
+    if (i.id == undefined) {
+      id = this.props.user.id;
+    } else {
+      id = i.id;
+    }
+    fetch(`http://localhost:3000/users/${id}`)
+      .then((res) => res.json())
+      .then(console.log);
+  };
+
+  // POSTS
+
+  postAccount = (e, account) => {
     e.preventDefault();
+    this.setState({
+      accountDisplay: false,
+    });
+    let newAccount = { ...account, user_id: this.props.user.id };
+    fetch("http://localhost:3000/accounts", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newAccount),
+    })
+      .then((res) => res.json())
+      .then((res) =>
+        this.setState({
+          accounts: [...this.state.accounts, res],
+        })
+      );
+  };
+
+  postTransaction = (transaction) => {
     fetch("http://localhost:3000/transactions", {
       method: "POST",
       headers: {
@@ -78,6 +96,8 @@ class Portfolio extends React.Component {
       .then((res) => res.json())
       .then((res) => console.log(res));
   };
+
+  // RENDER
 
   render() {
     return (

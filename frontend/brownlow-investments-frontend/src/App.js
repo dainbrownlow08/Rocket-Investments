@@ -27,14 +27,6 @@ class App extends React.Component {
     loggedIn: false,
   };
 
-  // getTicker = () => {
-  //   fetch(
-  //     `https://api.polygon.io/v1/open-close/AAPL/2021-02-24?unadjusted=true&apiKey=ijnvwxgPJOuMRmP4d7CwnSTy8sLpX1Lq`
-  //   )
-  //     .then((res) => res.json())
-  //     .then(console.log);
-  // };
-
   componentDidMount() {
     const token = localStorage.token;
     if (token) {

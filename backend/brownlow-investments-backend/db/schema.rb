@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 3) do
     t.bigint "account_id", null: false
     t.string "symbol"
     t.string "bos"
-    t.float "quantity"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity"
+    t.float "price"
+    t.datetime "date"
     t.index ["account_id"], name: "index_transactions_on_account_id"
   end
 
