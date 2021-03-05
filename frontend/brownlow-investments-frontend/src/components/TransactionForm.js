@@ -37,14 +37,28 @@ class TransactionForm extends React.Component {
   };
 
   handleBought = () => {
+    let newQuantity = 0;
+    if (this.state.quantity < 0) {
+      newQuantity = parseInt(this.state.quantity) * -1;
+    } else {
+      newQuantity = parseInt(this.state.quantity);
+    }
     this.setState({
       bos: "Bought",
+      quantity: newQuantity,
     });
   };
 
   handleSold = () => {
+    let newQuantity = 0;
+    if (this.state.quantity > 0) {
+      newQuantity = parseInt(this.state.quantity) * -1;
+    } else {
+      newQuantity = parseInt(this.state.quantity);
+    }
     this.setState({
       bos: "Sold",
+      quantity: newQuantity,
     });
   };
 
@@ -63,7 +77,7 @@ class TransactionForm extends React.Component {
   onQuantityChange = (e) => {
     if (e.target.value) {
       this.setState({
-        quantity: e.target.value,
+        quantity: parseInt(e.target.value),
       });
     } else {
       this.setState({
@@ -80,7 +94,7 @@ class TransactionForm extends React.Component {
     )
       .then((res) => res.json())
       .then((res) => {
-        tickerPrice = res.ticker.lastQuote.P;
+        tickerPrice = res.ticker.day.c;
         this.props.postTransaction({
           symbol: this.state.symbol,
           quantity: this.state.quantity,
