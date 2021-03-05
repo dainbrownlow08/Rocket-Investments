@@ -10,10 +10,12 @@ class DaysController < ApplicationController
     
 
     all = Day.all
-    first = Day.all.first.date
+    first = Day.all.last.date
     last = today
     if first == nil 
       render json: empty
+    elsif first == last
+      render json: "utd".to_json
     else
       start = first.to_s.split(" ")[0]
       finish = last.to_s.split("T")[0]
@@ -21,9 +23,6 @@ class DaysController < ApplicationController
       dates.each do |day|
         dayArr = day.split("-")   
         x = DateTime.new(dayArr[0].to_i,dayArr[1].to_i,dayArr[2].to_i)
-        all.each do |dbDay|
-        end
-        puts x == today
       end
       render json: dates
     end
