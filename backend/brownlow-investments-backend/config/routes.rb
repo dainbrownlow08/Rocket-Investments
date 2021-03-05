@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :stocks
+  resources :days
   resources :accounts
-  resources :transactions
   resources :users
   post '/sign_up', to: 'users#create'
   post '/login', to: 'auth#create'

@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Plot from "react-plotly.js";
-import TransactionForm from "./TransactionForm.js";
+import StockForm from "./StockForm.js";
 import AccountForm from "./AccountForm.js";
 
 class Portfolio extends React.Component {
@@ -32,20 +32,40 @@ class Portfolio extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           let yourAccs = res.filter((acc) => acc.user_id == this.props.user.id);
-          this.setState({
-            accounts: yourAccs,
-          });
+          this.setState(
+            {
+              accounts: yourAccs,
+            },
+            () => this.createDays()
+          );
         });
     } else {
       fetch("http://localhost:3000/accounts")
         .then((res) => res.json())
         .then((res) => {
           let yourAccs = res.filter((acc) => acc.user_id == parseInt(i.id));
-          this.setState({
-            accounts: yourAccs,
-          });
+          this.setState(
+            {
+              accounts: yourAccs,
+            },
+            () => this.createDays()
+          );
         });
     }
+  };
+
+  createDays = () => {
+    //console.log(this.state.accounts);
+    fetch(`http://localhost:3000/days`)
+      .then((res) => res.json())
+      .then((res) => {
+        // let dateObj = new Date();
+        // let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+        // let date = ("0" + dateObj.getDate()).slice(-2);
+        // let year = dateObj.getFullYear();
+        // let shortDate = year + "-" + month + "-" + date;
+        console.log(res);
+      });
   };
 
   getAccPlotPoints = (i) => {
@@ -130,12 +150,12 @@ class Portfolio extends React.Component {
         </Row>
         <Row>
           <div className="form-div">
-            <TransactionForm
+            <StockForm
               getAccounts={this.getAccounts}
               accounts={this.state.accounts}
               user={this.props.user}
               postTransaction={this.postTransaction}
-            ></TransactionForm>
+            ></StockForm>
           </div>
         </Row>
         <div className="data-container">

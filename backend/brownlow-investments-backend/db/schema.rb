@@ -10,28 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 2021_03_05_030639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
-    t.float "cash"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
+  create_table "days", force: :cascade do |t|
+    t.datetime "date"
     t.bigint "account_id", null: false
+    t.float "total"
+    t.float "cash"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_days_on_account_id"
+  end
+
+  create_table "stocks", force: :cascade do |t|
     t.string "symbol"
-    t.string "bos"
     t.integer "quantity"
     t.float "price"
-    t.datetime "date"
-    t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.bigint "day_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["day_id"], name: "index_stocks_on_day_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,5 +51,6 @@ ActiveRecord::Schema.define(version: 3) do
   end
 
   add_foreign_key "accounts", "users"
-  add_foreign_key "transactions", "accounts"
+  add_foreign_key "days", "accounts"
+  add_foreign_key "stocks", "days"
 end
