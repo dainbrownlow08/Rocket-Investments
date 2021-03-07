@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#create'
   get '/persist', to: 'auth#show'
   get '/accounts/:user_id', to: 'users#accounts'
+  #get '/totals', to: 'days#totals'
 end

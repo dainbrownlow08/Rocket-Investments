@@ -3,16 +3,19 @@ import { Container, Row, Col } from "react-bootstrap";
 import Plot from "react-plotly.js";
 import StockForm from "./StockForm.js";
 import AccountForm from "./AccountForm.js";
+import { key } from "../keys.js";
 
 class Portfolio extends React.Component {
   state = {
     accountDisplay: false,
     accounts: [],
+    accountId: [],
+    plotXs: [],
+    PlotYs: [],
   };
 
   componentDidMount() {
     this.getAccounts(localStorage);
-    this.getAccPlotPoints(localStorage);
   }
 
   // TOGGLES
@@ -32,9 +35,11 @@ class Portfolio extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           let yourAccs = res.filter((acc) => acc.user_id == this.props.user.id);
+          let accIds = yourAccs.map((acc) => acc.id);
           this.setState(
             {
               accounts: yourAccs,
+              accountId: accIds,
             },
             () => this.createDays()
           );
@@ -44,9 +49,11 @@ class Portfolio extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           let yourAccs = res.filter((acc) => acc.user_id == parseInt(i.id));
+          let accIds = yourAccs.map((acc) => acc.id);
           this.setState(
             {
               accounts: yourAccs,
+              accountId: accIds,
             },
             () => this.createDays()
           );
@@ -55,20 +62,52 @@ class Portfolio extends React.Component {
   };
 
   createDays = () => {
-    //console.log(this.state.accounts);
-    fetch(`http://localhost:3000/days`)
+    fetch(`http://localhost:3000/accounts/${this.state.accountId}`)
       .then((res) => res.json())
       .then((res) => {
-        // let dateObj = new Date();
-        // let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
-        // let date = ("0" + dateObj.getDate()).slice(-2);
-        // let year = dateObj.getFullYear();
-        // let shortDate = year + "-" + month + "-" + date;
-        console.log(res);
+        if (Object.keys(res).length == 0) {
+          this.getPlotPoints(localStorage);
+          console.log("stocks utd");
+        } else {
+          let counter = 0;
+          for (let k in res) {
+            for (let v in res[k]) {
+              counter += 1;
+            }
+          }
+          for (let k in res) {
+            for (let v in res[k]) {
+              fetch(
+                `https://api.polygon.io/v2/aggs/ticker/${k}/prev?unadjusted=true&apiKey=${key}`
+              )
+                .then((res) => res.json())
+                .then((json) => {
+                  let tickerPrice = json.results[0].c;
+                  fetch(`http://localhost:3000/stocks/${res[k][v]}`, {
+                    method: "PATCH",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({
+                      price: tickerPrice,
+                    }),
+                  })
+                    .then((response) => response.json())
+                    .then((data) => {
+                      fetch(`http://localhost:3000/days`)
+                        .then((res) => res.json())
+                        .then((res) => {
+                          if (!--counter) {
+                            this.getPlotPoints(localStorage);
+                          }
+                        });
+                    });
+                });
+            }
+          }
+        }
       });
   };
 
-  getAccPlotPoints = (i) => {
+  getPlotPoints = (i) => {
     let id = 0;
     if (i.id == undefined) {
       id = this.props.user.id;
@@ -77,7 +116,32 @@ class Portfolio extends React.Component {
     }
     fetch(`http://localhost:3000/users/${id}`)
       .then((res) => res.json())
-      .then(console.log);
+      .then((data) => {
+        //console.log(data);
+        //day data checks out now building x and y arrays
+        let dayTotals = {};
+        for (let account in data) {
+          for (let days in data[account]) {
+            if (!dayTotals[days]) {
+              dayTotals[days] = data[account][days];
+            } else {
+              dayTotals[days] += data[account][days];
+            }
+          }
+        }
+        //console.log(dayTotals);
+        // dayTotals checks out
+        let xVals = [];
+        let yVals = [];
+        for (let xs in dayTotals) {
+          xVals.push(xs.toString().split(" ")[0]);
+          yVals.push(parseFloat(dayTotals[xs]));
+        }
+        this.setState({
+          plotXs: xVals,
+          plotYs: yVals,
+        });
+      });
   };
 
   // POSTS
@@ -98,23 +162,13 @@ class Portfolio extends React.Component {
     })
       .then((res) => res.json())
       .then((res) =>
-        this.setState({
-          accounts: [...this.state.accounts, res],
-        })
+        this.setState(
+          {
+            accounts: [...this.state.accounts, res],
+          },
+          () => this.getPlotPoints(localStorage)
+        )
       );
-  };
-
-  postTransaction = (transaction) => {
-    fetch("http://localhost:3000/transactions", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(transaction),
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
   };
 
   // RENDER
@@ -154,7 +208,6 @@ class Portfolio extends React.Component {
               getAccounts={this.getAccounts}
               accounts={this.state.accounts}
               user={this.props.user}
-              postTransaction={this.postTransaction}
             ></StockForm>
           </div>
         </Row>
@@ -165,92 +218,8 @@ class Portfolio extends React.Component {
                 <Plot
                   data={[
                     {
-                      x: [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                        12,
-                        13,
-                        14,
-                        15,
-                        16,
-                        17,
-                        18,
-                        19,
-                        20,
-                        21,
-                        22,
-                        23,
-                        24,
-                        25,
-                        26,
-                        27,
-                        28,
-                        29,
-                        30,
-                        31,
-                        32,
-                        33,
-                        34,
-                        35,
-                        36,
-                        37,
-                        38,
-                        39,
-                        40,
-                        41,
-                      ],
-                      y: [
-                        2,
-                        3,
-                        4,
-                        6,
-                        10,
-                        11,
-                        12,
-                        15,
-                        10,
-                        9,
-                        13,
-                        14,
-                        17,
-                        21,
-                        27,
-                        28,
-                        24,
-                        29,
-                        41,
-                        40,
-                        44,
-                        47,
-                        51,
-                        40,
-                        39,
-                        38,
-                        43,
-                        51,
-                        54,
-                        59,
-                        39,
-                        63,
-                        60,
-                        71,
-                        79,
-                        79,
-                        79,
-                        79,
-                        81,
-                        77,
-                        88,
-                      ],
+                      x: this.state.plotXs,
+                      y: this.state.plotYs,
                       type: "scatter",
                       fill: "tozeroy",
                       mode: "lines+markers",
@@ -280,20 +249,8 @@ class Portfolio extends React.Component {
                 <Plot
                   data={[
                     {
-                      values: [414, 916, 755, 20, 100, 14, 17, 18, 12],
-                      labels: [
-                        "Information Technology",
-                        "Minerals",
-                        "Banking",
-                        "d",
-                        "e",
-                        "f",
-                        "g",
-                        "h",
-                        "i",
-                        "j",
-                        "k",
-                      ],
+                      values: [1, 2],
+                      labels: ["this", "that"],
                       "marker": {
                         "colors": ["rgb(95, 158, 160)"],
                       },

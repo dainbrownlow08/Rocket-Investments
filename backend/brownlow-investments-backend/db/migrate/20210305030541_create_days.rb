@@ -5,8 +5,6 @@ class CreateDays < ActiveRecord::Migration[6.0]
       t.references :account, null: false, foreign_key: true
       t.float :total
       t.float :cash
-
-      t.timestamps
     end
   end
 end

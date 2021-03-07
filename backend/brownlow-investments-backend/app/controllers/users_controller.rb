@@ -10,7 +10,17 @@ class UsersController < ApplicationController
 
   def show 
       user = User.find(params[:id])
-      render json: user
+      accounts = user.accounts
+      resp = {}
+      accounts.map do |acc|
+        resp[acc.name] = {}
+        days = acc.days
+        days.map do |day|
+          dayTotal = day.stocks.sum{|stock| stock.price * stock.quantity}
+          resp[acc.name] = {"#{day.date}":  dayTotal, **resp[acc.name]}
+        end
+      end
+      render json: resp
   end
 
   def create
@@ -30,27 +40,7 @@ class UsersController < ApplicationController
   end
 
 
-  #helpers - create date range for returning all plot points
-
-  def valid_date?(dt)
-    begin
-      Date.parse(dt)
-      true
-    rescue => e
-      false
-    end
-  end
-
-  def generate_date_range(first, last)
-    first, last = "", first unless last
-    if last.nil? || last.empty?
-      last = (Time.now - 1.day).in_time_zone('Kolkata').strftime("%Y-%m-%d")
-    end
-    if first.empty?
-      first = Time.strptime(last, "%Y-%m-%d").in_time_zone('Kolkata').beginning_of_month.strftime("%Y-%m-%d")
-    end
-    (first..last).select { |d|  valid_date?(d) }
-  end
+  #helpers - create date range for returning all plot pointsy
   
 
   private 

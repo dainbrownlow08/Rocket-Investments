@@ -20,18 +20,30 @@ class StockForm extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           let yourAccs = res.filter((acc) => acc.user_id == this.props.user.id);
-          this.setState({
-            account: yourAccs[0].id,
-          });
+          if (yourAccs[0] == undefined) {
+            this.setState({
+              account: [],
+            });
+          } else {
+            this.setState({
+              account: yourAccs[0].id,
+            });
+          }
         });
     } else {
       fetch("http://localhost:3000/accounts")
         .then((res) => res.json())
         .then((res) => {
-          let yourAccs = res.filter((acc) => acc.user_id == parseInt(i.id));
-          this.setState({
-            account: yourAccs[0].id,
-          });
+          let yourAccs = res.filter((acc) => acc.user_id == i.id);
+          if (yourAccs[0] == undefined) {
+            this.setState({
+              account: [],
+            });
+          } else {
+            this.setState({
+              account: yourAccs[0].id,
+            });
+          }
         });
     }
   };
@@ -86,7 +98,7 @@ class StockForm extends React.Component {
   //   }
   // };
 
-  // createT = (e) => {
+  // createS = (e) => {
   //   e.preventDefault();
   //   let tickerPrice = 0.0;
   //   fetch(

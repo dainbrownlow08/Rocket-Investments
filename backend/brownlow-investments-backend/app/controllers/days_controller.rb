@@ -2,33 +2,12 @@ class DaysController < ApplicationController
   skip_before_action :authorized
 
   def index
-    empty = [] 
-
-    today = Time.now.to_s.split(" ")[0]
-    todayArr = today.split("-")
-    today = DateTime.new(todayArr[0].to_i,todayArr[1].to_i,todayArr[2].to_i)
-    
-
-    all = Day.all
-    first = Day.all.last.date
-    last = today
-    if first == nil 
-      render json: empty
-    elsif first == last
-      render json: "utd".to_json
-    else
-      start = first.to_s.split(" ")[0]
-      finish = last.to_s.split("T")[0]
-      dates = generate_date_range(start,finish)
-      dates.each do |day|
-        dayArr = day.split("-")   
-        x = DateTime.new(dayArr[0].to_i,dayArr[1].to_i,dayArr[2].to_i)
-      end
-      render json: dates
-    end
+    days = Day.all
+    render json: days
   end
 
-  def create
+
+  def totals
     byebug
   end
 
