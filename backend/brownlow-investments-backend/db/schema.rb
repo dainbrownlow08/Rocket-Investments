@@ -26,10 +26,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_030639) do
   create_table "days", force: :cascade do |t|
     t.datetime "date"
     t.bigint "account_id", null: false
-    t.float "total"
     t.float "cash"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_days_on_account_id"
   end
 

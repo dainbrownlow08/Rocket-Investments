@@ -4,7 +4,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import r_i_2 from "../img/r_i_2.png";
 
 function Navigation(props) {
-  console.log(props);
   return (
     <Fragment>
       <Navbar style={{ backgroundColor: "#242526" }}>

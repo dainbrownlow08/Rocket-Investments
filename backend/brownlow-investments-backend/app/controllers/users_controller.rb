@@ -1,7 +1,7 @@
 require "active_support/time"
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :accounts, :index, :show]
+  skip_before_action :authorized, only: [:create, :accounts, :index, :show, :distro]
 
   def index
     users = User.all
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
         resp[acc.name] = {}
         days = acc.days
         days.map do |day|
-          dayTotal = day.stocks.sum{|stock| stock.price * stock.quantity}
+          dayTotal = day.stocks.sum{|stock| stock.price * stock.quantity} + day.cash 
           resp[acc.name] = {"#{day.date}":  dayTotal, **resp[acc.name]}
         end
       end
@@ -39,9 +39,26 @@ class UsersController < ApplicationController
     render json: accounts
   end
 
-
-  #helpers - create date range for returning all plot pointsy
-  
+  def distro
+    user = User.find(params[:user_id])
+    accounts = user.accounts
+    resp = {}
+    accounts.map do |acc|
+      day = acc.days.last
+      if day.stocks.length == 0 
+        resp = resp
+      else
+        stocks = day.stocks.each do |stock|
+          if !resp[stock.sector]
+            resp[stock.sector] = stock.quantity * stock.price
+          else
+            resp[stock.sector] += (stock.quantity * stock.price)
+          end
+        end
+      end
+    end
+    render json: resp
+  end
 
   private 
 

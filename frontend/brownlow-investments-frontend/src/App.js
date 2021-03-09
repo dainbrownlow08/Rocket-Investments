@@ -122,41 +122,36 @@ class App extends React.Component {
     return (
       <Fragment>
         <Router>
-          <div>
-            <Navigation
-              handleLogout={this.handleLogout}
-              user={this.state.user}
-            />
-            <br />
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/login">
-                {this.state.loggedIn ? (
-                  <Redirect to="/portfolio" />
-                ) : (
-                  <Login
-                    ioo={"Username"}
-                    handleLoginOrSignup={this.handleLogin}
-                  ></Login>
-                )}
-              </Route>
-              <Route exact path="/signup">
-                {this.state.loggedIn ? (
-                  <Redirect to="/portfolio" />
-                ) : (
-                  <Login
-                    ioo={"New Username"}
-                    handleLoginOrSignup={this.handleSignup}
-                  ></Login>
-                )}
-              </Route>
-              <Route exact path="/portfolio">
-                <Portfolio user={this.state.user}></Portfolio>
-              </Route>
-            </Switch>
-          </div>
+          <Navigation handleLogout={this.handleLogout} user={this.state.user} />
+          <br />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/login">
+              {this.state.loggedIn ? (
+                <Redirect to="/portfolio" />
+              ) : (
+                <Login
+                  ioo={"Username"}
+                  handleLoginOrSignup={this.handleLogin}
+                ></Login>
+              )}
+            </Route>
+            <Route exact path="/signup">
+              {this.state.loggedIn ? (
+                <Redirect to="/portfolio" />
+              ) : (
+                <Login
+                  ioo={"New Username"}
+                  handleLoginOrSignup={this.handleSignup}
+                ></Login>
+              )}
+            </Route>
+            <Route exact path="/portfolio">
+              <Portfolio user={this.state.user}></Portfolio>
+            </Route>
+          </Switch>
         </Router>
       </Fragment>
     );

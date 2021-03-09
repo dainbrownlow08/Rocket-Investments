@@ -10,8 +10,11 @@ class Portfolio extends React.Component {
     accountDisplay: false,
     accounts: [],
     accountId: [],
+    dayId: {},
     plotXs: [],
-    PlotYs: [],
+    plotYs: [],
+    pieUnits: [],
+    pieVals: [],
   };
 
   componentDidMount() {
@@ -107,6 +110,45 @@ class Portfolio extends React.Component {
       });
   };
 
+  getDayIds = (accountIds) => {
+    if (!accountIds.length == 0) {
+      fetch(`http://localhost:3000/accounts/days/${accountIds}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          this.setState({
+            dayId: data,
+          });
+        });
+    }
+  };
+
+  getDistro = (i) => {
+    if (i == undefined) {
+      fetch(`http://localhost:3000/users/distro/${this.props.user.id}`)
+        .then((res) => res.json())
+        .then(console.log);
+    } else {
+      fetch(`http://localhost:3000/users/distro/${i.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          let newSectors = [];
+          let newSectorNums = [];
+          for (let k in data) {
+            newSectors.push(k);
+            newSectorNums.push(data[k]);
+          }
+          this.setState(
+            {
+              pieUnits: newSectors,
+              pieVals: newSectorNums,
+            },
+            () => this.getDayIds(this.state.accountId)
+          );
+        });
+    }
+  };
+
   getPlotPoints = (i) => {
     let id = 0;
     if (i.id == undefined) {
@@ -117,8 +159,6 @@ class Portfolio extends React.Component {
     fetch(`http://localhost:3000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data);
-        //day data checks out now building x and y arrays
         let dayTotals = {};
         for (let account in data) {
           for (let days in data[account]) {
@@ -129,18 +169,19 @@ class Portfolio extends React.Component {
             }
           }
         }
-        //console.log(dayTotals);
-        // dayTotals checks out
         let xVals = [];
         let yVals = [];
         for (let xs in dayTotals) {
           xVals.push(xs.toString().split(" ")[0]);
           yVals.push(parseFloat(dayTotals[xs]));
         }
-        this.setState({
-          plotXs: xVals,
-          plotYs: yVals,
-        });
+        this.setState(
+          {
+            plotXs: xVals,
+            plotYs: yVals,
+          },
+          () => this.getDistro(localStorage)
+        );
       });
   };
 
@@ -161,14 +202,33 @@ class Portfolio extends React.Component {
       body: JSON.stringify(newAccount),
     })
       .then((res) => res.json())
-      .then((res) =>
+      .then((res) => {
         this.setState(
           {
             accounts: [...this.state.accounts, res],
+            accountId: [...this.state.accountId, res.id],
           },
-          () => this.getPlotPoints(localStorage)
-        )
-      );
+          () => {
+            this.getDayIds(this.state.accountId);
+          }
+        );
+      });
+  };
+
+  postStock = (data) => {
+    fetch("http://localhost:3000/stocks", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.getPlotPoints(localStorage);
+      });
   };
 
   // RENDER
@@ -205,9 +265,10 @@ class Portfolio extends React.Component {
         <Row>
           <div className="form-div">
             <StockForm
-              getAccounts={this.getAccounts}
-              accounts={this.state.accounts}
               user={this.props.user}
+              postStock={this.postStock}
+              accounts={this.state.accounts}
+              dayId={this.state.dayId}
             ></StockForm>
           </div>
         </Row>
@@ -249,11 +310,9 @@ class Portfolio extends React.Component {
                 <Plot
                   data={[
                     {
-                      values: [1, 2],
-                      labels: ["this", "that"],
-                      "marker": {
-                        "colors": ["rgb(95, 158, 160)"],
-                      },
+                      values: this.state.pieVals,
+                      labels: this.state.pieUnits,
+                      "marker": {},
                       type: "pie",
                       opacity: 0.8,
                     },
