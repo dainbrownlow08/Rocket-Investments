@@ -244,8 +244,10 @@ class Portfolio extends React.Component {
               </div>
             </Col>
             <Col>
-              <div onClick={this.toggleAccountDisplay} className="ptab">
-                <p className="tab-text">+</p>
+              <div onClick={this.toggleAccountDisplay} className="ptab2">
+                <p className="tab-text">
+                  {this.state.accountDisplay ? "-" : "+"}
+                </p>
               </div>
             </Col>
             {this.state.accounts?.map((a) => (
@@ -320,7 +322,7 @@ class Portfolio extends React.Component {
                   layout={{
                     height: 400,
                     width: 500,
-                    title: "Sector Distribution",
+                    title: "Asset Allocation",
                     paper_bgcolor: "rgba(0,0,0,0)",
                   }}
                 />

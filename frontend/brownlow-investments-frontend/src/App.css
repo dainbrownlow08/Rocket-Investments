@@ -73,6 +73,14 @@
   margin-left: 75px;
 }
 
+.stock-buttons {
+  padding-left: 14px;
+}
+
+.stock-button {
+  margin-left: 7px;
+}
+
 .account-div {
   background-color: #242526;
   border-radius: 10px;
@@ -93,16 +101,37 @@
   text-align: center;
 }
 
+.contrast {
+  height: 7px;
+  background-color: #1c3a63;
+}
+
 .ptab {
   background-color: #242526;
   border-radius: 10px;
   text-align: center;
 }
 
+.ptab2 {
+  background-color: #0275d8;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.ptab2:hover {
+  background-color: #0063cc;
+}
+
 .tab-text {
-  color: #b0b3b8;
+  color: #c0c0c0;
   font-size: x-small;
 }
+
+.tab-text2 {
+  color: #18191a;
+  font-size: x-small;
+}
+
 #account-tab {
   background-color: #18191a;
   text-align: center;

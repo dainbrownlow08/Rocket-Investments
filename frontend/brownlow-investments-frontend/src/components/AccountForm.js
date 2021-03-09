@@ -68,7 +68,7 @@ class AccountForm extends React.Component {
                 </Form.Control>
               </Col>
               <Col className="accBtn">
-                <Button variant="dark" type="submit">
+                <Button variant="primary" type="submit">
                   Submit
                 </Button>
               </Col>

@@ -6,10 +6,10 @@ import r_i_2 from "../img/r_i_2.png";
 function Navigation(props) {
   return (
     <Fragment>
-      <Navbar style={{ backgroundColor: "#242526" }}>
+      <Navbar style={{ backgroundColor: "#0275d8", height: 60 }}>
         <LinkContainer style={{ color: "#C0C0C0" }} to="/">
           <Navbar.Brand>
-            <img style={{ width: 168, height: 50 }} src={r_i_2}></img>
+            <img style={{ width: 135, height: 40 }} src={r_i_2}></img>
           </Navbar.Brand>
         </LinkContainer>
         <Nav className="ml-auto">

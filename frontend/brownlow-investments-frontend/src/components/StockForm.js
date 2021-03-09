@@ -217,15 +217,27 @@ class StockForm extends React.Component {
               </Row>
               <Row>
                 <Col xs={4} className="tCol1">
-                  <Button variant="dark" onClick={() => this.handleBought()}>
-                    Bought
-                  </Button>
-                  <Button variant="dark" onClick={() => this.handleSold()}>
-                    Sold
-                  </Button>
+                  <Row className="stock-buttons">
+                    <div>
+                      <Button
+                        variant="primary"
+                        onClick={() => this.handleBought()}
+                      >
+                        Bought
+                      </Button>
+                    </div>
+                    <div className="stock-button">
+                      <Button
+                        variant="primary"
+                        onClick={() => this.handleSold()}
+                      >
+                        Sold
+                      </Button>
+                    </div>
+                  </Row>
                 </Col>
                 <Col className="tCol2">
-                  <Button variant="dark" type="submit">
+                  <Button variant="primary" type="submit">
                     Submit
                   </Button>
                 </Col>

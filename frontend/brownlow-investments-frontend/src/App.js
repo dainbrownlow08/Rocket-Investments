@@ -123,6 +123,7 @@ class App extends React.Component {
       <Fragment>
         <Router>
           <Navigation handleLogout={this.handleLogout} user={this.state.user} />
+          <div className="contrast"></div>
           <br />
           <Switch>
             <Route exact path="/">
