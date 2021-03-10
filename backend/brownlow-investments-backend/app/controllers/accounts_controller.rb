@@ -33,7 +33,6 @@ class AccountsController < ApplicationController
 
     #response in format {"SYMBOL":[ARRAY OF STOCK IDS THAT NEED TODAYS PRICE]}
     resp = {}
-
     accIds = params[:id].split(",")
     accIds.each do |id|
       account = Account.find(id.to_i)
@@ -45,7 +44,7 @@ class AccountsController < ApplicationController
       else
         cloneStocks = clone.stocks
         if !accountDays.include?(today)
-          newDay = Day.create(account_id: id.to_i, date: today, cash: clone.cash, total: clone.total)
+          newDay = Day.create(account_id: id.to_i, date: today, cash: clone.cash)
           cloneStocks.each do |stock|
             newStock = Stock.create(day_id: newDay.id, symbol: stock.symbol, quantity: stock.quantity, price: 0.0, sector: stock.sector)
             if !resp[stock.symbol]

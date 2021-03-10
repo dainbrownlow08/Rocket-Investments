@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get '/accounts/:user_id', to: 'users#accounts'
   get '/users/distro/:user_id', to: 'users#distro'
   get '/accounts/days/:id', to: 'accounts#getDays'
+  get '/users/news/:user_id', to: 'users#tickerNews'
 end

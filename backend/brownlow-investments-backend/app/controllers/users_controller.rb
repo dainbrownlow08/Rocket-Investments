@@ -1,7 +1,7 @@
 require "active_support/time"
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :accounts, :index, :show, :distro]
+  skip_before_action :authorized, only: [:create, :accounts, :index, :show, :distro, :tickerNews]
 
   def index
     users = User.all
@@ -17,10 +17,25 @@ class UsersController < ApplicationController
         days = acc.days
         days.map do |day|
           dayTotal = day.stocks.sum{|stock| stock.price * stock.quantity} + day.cash 
-          resp[acc.name] = {"#{day.date}":  dayTotal, **resp[acc.name]}
+          resp[acc.name] = {**resp[acc.name],"#{day.date}":  dayTotal}
         end
       end
       render json: resp
+  end
+
+  def tickerNews
+    user = User.find(params[:user_id].to_i)
+    stocks = user.stocks
+    sampleStocks = []
+    if stocks.length > 0
+      stocks = stocks.map{|s| s.symbol}
+      4.times do 
+        sampleStocks.push(stocks.sample)
+      end
+      render json: sampleStocks
+    else
+      render json: stocks
+    end
   end
 
   def create

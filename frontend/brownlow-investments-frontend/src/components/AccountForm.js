@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Modal } from "react-bootstrap";
 
 class AccountForm extends React.Component {
   state = {
@@ -68,7 +68,7 @@ class AccountForm extends React.Component {
                 </Form.Control>
               </Col>
               <Col className="accBtn">
-                <Button variant="primary" type="submit">
+                <Button className="btn-shadow" variant="primary" type="submit">
                   Submit
                 </Button>
               </Col>

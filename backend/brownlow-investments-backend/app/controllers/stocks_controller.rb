@@ -8,7 +8,7 @@ class StocksController < ApplicationController
 
   def create
     day = Day.find(params["day"])
-    if day.stocks.length != 0
+    if day.stocks.length != 0 
       dayStocks = day.stocks
       thisStock = dayStocks.find{|stock| stock.symbol == params["symbol"]}
       if thisStock != nil

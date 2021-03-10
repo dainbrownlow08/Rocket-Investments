@@ -16,6 +16,12 @@ class StockForm extends React.Component {
     this.getAccounts(localStorage);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps != this.props) {
+      this.getAccounts(localStorage);
+    }
+  }
+
   getDayIds = (accountIds) => {
     if (!accountIds.length == 0) {
       fetch(`http://localhost:3000/accounts/days/${accountIds}`)

@@ -32,7 +32,7 @@ class App extends React.Component {
     if (token) {
       this.persistUser(token);
     }
-    document.body.style.background = "#18191A";
+    document.body.style.background = "#252628";
   }
 
   persistUser = (token) => {
