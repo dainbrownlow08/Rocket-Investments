@@ -9,15 +9,15 @@ class StockForm extends React.Component {
     accounts: [],
     bos: null,
     days: {},
-    day: [],
+    day: 0,
   };
 
   componentDidMount() {
     this.getAccounts(localStorage);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps != this.props) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.accounts != this.props.accounts) {
       this.getAccounts(localStorage);
     }
   }
@@ -27,6 +27,7 @@ class StockForm extends React.Component {
       fetch(`http://localhost:3000/accounts/days/${accountIds}`)
         .then((res) => res.json())
         .then((data) => {
+          this.props.toggleChoice(data[this.state.accounts[0].name]);
           this.setState({
             days: data,
             day: data[this.state.accounts[0].name],
@@ -114,6 +115,7 @@ class StockForm extends React.Component {
   };
 
   onAccChange = (e) => {
+    this.props.toggleChoice(parseInt(e.target.value));
     this.setState({
       day: parseInt(e.target.value),
     });
@@ -169,9 +171,11 @@ class StockForm extends React.Component {
                   onChange={(e) => this.onSymbolChange(e)}
                   type="text"
                   style={{
-                    backgroundColor: "#18191A",
+                    backgroundColor: "#494d50",
                     borderColor: "#333333",
                     color: "#C0C0C0",
+                    boxShadow:
+                      "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
                   }}
                 />
               </Row>
@@ -181,9 +185,11 @@ class StockForm extends React.Component {
                   onChange={(e) => this.onQuantityChange(e)}
                   type="text"
                   style={{
-                    backgroundColor: "#18191A",
+                    backgroundColor: "#494d50",
                     borderColor: "#333333",
                     color: "#C0C0C0",
+                    boxShadow:
+                      "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
                   }}
                 />
               </Row>
@@ -203,9 +209,11 @@ class StockForm extends React.Component {
                   id="inlineFormCustomSelectPref"
                   custom
                   style={{
-                    backgroundColor: "#18191A",
+                    backgroundColor: "#494d50",
                     borderColor: "#333333",
                     color: "#C0C0C0",
+                    boxShadow:
+                      "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
                   }}
                 >
                   {this.props.accounts.length > 0
@@ -226,7 +234,8 @@ class StockForm extends React.Component {
                   <Row className="stock-buttons">
                     <div>
                       <Button
-                        variant="primary"
+                        variant="dark"
+                        className="btn-shadow"
                         onClick={() => this.handleBought()}
                       >
                         Bought
@@ -234,7 +243,8 @@ class StockForm extends React.Component {
                     </div>
                     <div className="stock-button">
                       <Button
-                        variant="primary"
+                        className="btn-shadow"
+                        variant="dark"
                         onClick={() => this.handleSold()}
                       >
                         Sold
@@ -243,7 +253,7 @@ class StockForm extends React.Component {
                   </Row>
                 </Col>
                 <Col className="tCol2">
-                  <Button variant="primary" type="submit">
+                  <Button variant="dark" className="btn-shadow" type="submit">
                     Submit
                   </Button>
                 </Col>

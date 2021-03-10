@@ -21,6 +21,10 @@ class Portfolio extends React.Component {
     cashName: null,
     cashHash: {},
     tickerNews: [],
+    choice: 0,
+    aStocks: [],
+    length: 0,
+    remainder: 0,
   };
 
   componentDidMount() {
@@ -28,6 +32,13 @@ class Portfolio extends React.Component {
   }
 
   // TOGGLES
+
+  toggleChoice = (id) => {
+    this.getStocks(id);
+    this.setState({
+      choice: id,
+    });
+  };
 
   toggleAccountDisplay = () => {
     let newAccountDisplay = !this.state.accountDisplay;
@@ -77,6 +88,32 @@ class Portfolio extends React.Component {
       .then((data) => {
         this.setState({
           dayCash: data,
+        });
+      });
+  };
+
+  getStocks = (dayId) => {
+    fetch("http://localhost:3000/stocks")
+      .then((res) => res.json())
+      .then((res) => {
+        let accStocks = res.filter((stock) => stock.day_id == dayId);
+        let newStocks = {};
+        accStocks.forEach((stock) => {
+          if (!newStocks[stock.symbol]) {
+            newStocks[stock.symbol] = stock.quantity;
+          } else {
+            newStocks[stock.symbol] += stock.quantity;
+          }
+        });
+        let finalStocks = [];
+        for (let k in newStocks) {
+          let o = {};
+          o.symbol = k;
+          o.quantity = newStocks[k];
+          finalStocks.push(o);
+        }
+        this.setState({
+          aStocks: finalStocks,
         });
       });
   };
@@ -226,6 +263,7 @@ class Portfolio extends React.Component {
       fetch(`http://localhost:3000/accounts/days/${accountIds}`)
         .then((res) => res.json())
         .then((data) => {
+          this.getStocks(this.state.choice);
           console.log(data);
           this.setState({
             dayId: data,
@@ -345,6 +383,7 @@ class Portfolio extends React.Component {
       .then((data) => {
         console.log(data);
         this.getPlotPoints(localStorage);
+        this.getStocks(this.state.choice);
       });
   };
 
@@ -363,7 +402,6 @@ class Portfolio extends React.Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        debugger;
         console.log(data);
         this.getPlotPoints(localStorage);
       });
@@ -414,11 +452,26 @@ class Portfolio extends React.Component {
         <Row>
           <div className="form-div">
             <StockForm
+              toggleChoice={this.toggleChoice}
               user={this.props.user}
               postStock={this.postStock}
               accounts={this.state.accounts}
               dayId={this.state.dayId}
             ></StockForm>
+          </div>
+        </Row>
+        <div>
+          <p className="your-ticker-news">Portfolio Holdings</p>
+        </div>
+        <Row>
+          <div className="holdings">
+            {this.state.aStocks.length > 0
+              ? this.state.aStocks.map((stock) => (
+                  <p className="ticker">
+                    ${stock.symbol}: {stock.quantity}
+                  </p>
+                ))
+              : null}
           </div>
         </Row>
         <div className="data-container">
@@ -433,11 +486,17 @@ class Portfolio extends React.Component {
                       type: "scatter",
                       fill: "tozeroy",
                       mode: "lines+markers",
-                      marker: { color: "#0275d8", size: 2 },
+                      marker: { color: "#2d5c9f", size: 2 },
                     },
                   ]}
                   layout={{
-                    title: "Total Performance",
+                    title: {
+                      text: "Total Performance",
+                      font: {
+                        size: 16,
+                        color: "#c0c0c0",
+                      },
+                    },
                     color: "red",
                     width: 736,
                     height: 450,
@@ -471,25 +530,29 @@ class Portfolio extends React.Component {
                   layout={{
                     height: 400,
                     width: 500,
-                    title: "Asset Allocation",
+                    title: {
+                      text: "Asset Allocation",
+                      font: {
+                        size: 16,
+                        color: "#c0c0c0",
+                      },
+                    },
                     paper_bgcolor: "rgba(0,0,0,0)",
                   }}
                 />
               </div>
             </Col>
           </Row>
-          <Row>
-            <div>
-              <h4>Your Ticker News</h4>
-            </div>
-          </Row>
+          <div>
+            <p className="your-ticker-news">News About Your Investments</p>
+          </div>
           <Row>
             {this.state.tickerNews.length > 0
               ? this.state.tickerNews.slice(0, 2).map((a) => (
                   <Col>
                     <div className="flex-news">
                       <a href={`${a.url}`}>{a.title}</a>
-                      <p>{a.summary}</p>
+                      <p className="s">{a.summary}</p>
                     </div>
                   </Col>
                 ))
@@ -502,7 +565,7 @@ class Portfolio extends React.Component {
                   <Col>
                     <div className="flex-news">
                       <a href={`${a.url}`}>{a.title}</a>
-                      <p>{a.summary}</p>
+                      <p className="s">{a.summary}</p>
                     </div>
                   </Col>
                 ))

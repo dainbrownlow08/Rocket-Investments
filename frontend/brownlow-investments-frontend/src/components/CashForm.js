@@ -54,12 +54,14 @@ class CashForm extends React.Component {
             }}
           >
             <Row className="accForm">
-              <div>
+              <div className="cash-form-info">
                 <div>
-                  <p>{this.props.name}</p>
+                  <p className="s">{this.props.name}</p>
                 </div>
                 <div>
-                  <p>${parseFloat(this.state.dayCash.cash).toFixed(2)}</p>
+                  <p className="s">
+                    Available ${parseFloat(this.state.dayCash.cash).toFixed(2)}
+                  </p>
                 </div>
               </div>
               <Col>
@@ -70,25 +72,36 @@ class CashForm extends React.Component {
                   onChange={(e) => this.onAmountChange(e)}
                   type="text"
                   style={{
-                    backgroundColor: "#18191A",
+                    backgroundColor: "#494d50",
                     borderColor: "#333333",
                     color: "#C0C0C0",
+                    boxShadow:
+                      "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
                   }}
                 />
               </Col>
               <Col className="accBtn">
-                <Button onClick={() => this.handleDeposit()} variant="primary">
-                  Deposit
-                </Button>
-                <Button
-                  onClick={() => this.handleWithdrawal()}
-                  variant="primary"
-                >
-                  Withdraw
-                </Button>
+                <Row>
+                  <div className="cash-btn">
+                    <Button
+                      className="btn-shadow"
+                      onClick={() => this.handleDeposit()}
+                      variant="dark"
+                    >
+                      Deposit
+                    </Button>
+                  </div>
+                  <Button
+                    className="btn-shadow"
+                    onClick={() => this.handleWithdrawal()}
+                    variant="dark"
+                  >
+                    Withdraw
+                  </Button>
+                </Row>
               </Col>
               <Col className="accBtn">
-                <Button variant="primary" type="submit">
+                <Button className="btn-shadow" variant="dark" type="submit">
                   Submit
                 </Button>
               </Col>

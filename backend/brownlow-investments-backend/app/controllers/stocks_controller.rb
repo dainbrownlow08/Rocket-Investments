@@ -1,6 +1,11 @@
 class StocksController < ApplicationController
   skip_before_action :authorized
 
+  def index
+    stocks = Stock.all
+    render json: stocks
+  end
+
   def show
     stock = Stock.find(params[:id])
     render json: stock

@@ -81,7 +81,7 @@
 }
 
 .stock-button {
-  margin-left: 7px;
+  margin-left: 15px;
 }
 
 .account-div {
@@ -120,24 +120,53 @@
   box-shadow: 3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
+.btn-shadow2 {
+  box-shadow: 3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  margin-right: 200px;
+}
+
+.holdings {
+  background-color: #313335;
+  display: flex;
+  flex-direction: row;
+  width: 1272px;
+  margin-left: 75px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
 /* .ptab {
   background-color: red;
   border-radius: 10px;
   text-align: center;
 } */
 
+.s {
+  color: #c0c0c0;
+}
+
+.your-ticker-news {
+  text-align: center;
+  color: #c0c0c0;
+  margin-right: 40px;
+  margin-top: 15px;
+  font-size: x-small;
+}
+
 .flex-news {
   background-color: #313335;
   display: flex;
   flex-direction: column;
-  min-height: 20vh;
-  margin-top: 5px;
+  margin-top: 30px;
   border-radius: 10px;
   box-shadow: 3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
 }
 
 .ptab2 {
-  background-color: #344955;
+  background-color: #2d5c9f;
   border-radius: 10px;
   text-align: center;
   box-shadow: 3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
@@ -145,6 +174,23 @@
 
 .ptab2:hover {
   background-color: #0063cc;
+}
+
+.ticker {
+  color: #c0c0c0;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 30px;
+  font-size: smaller;
+}
+
+.cash-form-info {
+  margin-top: 1px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 57px;
+  margin-left: 15px;
+  width: 200px;
 }
 
 .tab-text {
@@ -164,6 +210,15 @@
 
 .accBtn {
   padding-top: 32px;
+}
+
+.accBtn2 {
+  padding-top: 32px;
+}
+
+.cash-btn {
+  margin-left: 25px;
+  margin-right: 15px;
 }
 
 .tFormTL {
@@ -190,5 +245,5 @@
 
 .tCol2 {
   padding-top: 47px;
-  margin-left: 8px;
+  margin-left: 95px;
 }

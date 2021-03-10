@@ -41,9 +41,12 @@ class AccountForm extends React.Component {
                   onChange={(e) => this.onNameChange(e)}
                   type="text"
                   style={{
-                    backgroundColor: "#18191A",
+                    backgroundColor: "#494d50",
                     borderColor: "#333333",
                     color: "#C0C0C0",
+                    boxShadow:
+                      "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
+                    width: 575,
                   }}
                 />
               </Col>
@@ -57,9 +60,12 @@ class AccountForm extends React.Component {
                   id="inlineFormCustomSelectPref"
                   custom
                   style={{
-                    backgroundColor: "#18191A",
+                    backgroundColor: "#494d50",
                     borderColor: "#333333",
                     color: "#C0C0C0",
+                    marginLeft: 10,
+                    boxShadow:
+                      "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
                   }}
                 >
                   <option value="Individual">Individual</option>
@@ -67,8 +73,8 @@ class AccountForm extends React.Component {
                   <option value="IRA">IRA</option>
                 </Form.Control>
               </Col>
-              <Col className="accBtn">
-                <Button className="btn-shadow" variant="primary" type="submit">
+              <Col className="accBtn2">
+                <Button className="btn-shadow" variant="dark" type="submit">
                   Submit
                 </Button>
               </Col>
