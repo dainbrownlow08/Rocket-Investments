@@ -95,8 +95,8 @@
 }
 
 .tabs-div {
-  margin-left: 60px;
-  margin-right: 70px;
+  margin-left: 50px;
+  margin-right: 64px;
 }
 
 .tab {
@@ -143,6 +143,20 @@
 
 .s {
   color: #c0c0c0;
+}
+
+.s2 {
+  text-align: center;
+}
+
+.s3 {
+  color: #c0c0c0;
+  padding-left: 20px;
+}
+
+.p-front {
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .your-ticker-news {

@@ -33,9 +33,11 @@ class Login extends React.Component {
               name="username"
               placeholder="Username..."
               style={{
-                backgroundColor: "#181818",
+                backgroundColor: "#494d50",
                 borderColor: "#333333",
                 color: "#C0C0C0",
+                boxShadow:
+                  "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
               }}
             />
             <br />
@@ -46,13 +48,15 @@ class Login extends React.Component {
               name="password"
               placeholder="Password..."
               style={{
-                backgroundColor: "#181818",
+                backgroundColor: "#494d50",
                 borderColor: "#333333",
                 color: "#C0C0C0",
+                boxShadow:
+                  "3px 0px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
               }}
             />
             <br />
-            <Button variant="dark" type="submit">
+            <Button className="btn-shadow" variant="dark" type="submit">
               Submit
             </Button>
           </Form>

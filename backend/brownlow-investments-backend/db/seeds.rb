@@ -99,6 +99,8 @@ d2626 = Day.create(date: "2021-03-07T00:00:00.000Z", account_id: fd.id,cash: 100
 d27 = Day.create(date: "2021-03-08T00:00:00.000Z", account_id: rh.id, cash: 100.0)
 d2727 = Day.create(date: "2021-03-08T00:00:00.000Z", account_id: fd.id,cash: 100.0)
 
+d28 = Day.create(date: "2021-03-09T00:00:00.000Z", account_id: rh.id, cash: 100.0)
+d2828 = Day.create(date: "2021-03-09T00:00:00.000Z", account_id: fd.id,cash: 100.0)
 
 
 
@@ -183,3 +185,5 @@ s26s26 = Stock.create(day_id: d2626.id, sector: "Technology", symbol: "AAPL", qu
 s27 = Stock.create(day_id: d27.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 582.19)
 s27s27 = Stock.create(day_id: d2727.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 117.90)
 
+s28 = Stock.create(day_id: d28.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 582.19)
+s28s28 = Stock.create(day_id: d2828.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 117.90)

@@ -101,7 +101,7 @@ class CashForm extends React.Component {
                 </Row>
               </Col>
               <Col className="accBtn">
-                <Button className="btn-shadow" variant="dark" type="submit">
+                <Button className="btn-shadow2" variant="dark" type="submit">
                   Submit
                 </Button>
               </Col>
