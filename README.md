@@ -39,7 +39,7 @@ Open a new terminal and navigate to the frontend and type the following commands
 
 ## Contributing to Rocket Investments
 
-To contribute to Food Connect, follow these steps:
+To contribute to Rocket Investments, follow these steps:
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
