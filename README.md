@@ -1,5 +1,7 @@
 # README
 
+For a quick demo, follow the link (www.youtube.com/watch?v=ANXeFLE1jdc)
+
 # Rocket Investments
 
 Rocket Investments is a react application that allows investors to track their cummulitive portfolio performance,
@@ -17,8 +19,6 @@ To install Rocket Investments, follow these steps:
 3. Navigate into that directory and use the command: `git clone <project-SSH>`
 
 ## Using Rocket Investments
-
-For a quick demo, follow the link (https://youtu.be/B0B4GIFyu7I)
 
 To use Rocket Investments, follow these steps:
 
