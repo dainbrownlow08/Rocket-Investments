@@ -102,6 +102,28 @@ d2727 = Day.create(date: "2021-03-08T00:00:00.000Z", account_id: fd.id,cash: 100
 d28 = Day.create(date: "2021-03-09T00:00:00.000Z", account_id: rh.id, cash: 100.0)
 d2828 = Day.create(date: "2021-03-09T00:00:00.000Z", account_id: fd.id,cash: 100.0)
 
+d29 = Day.create(date: "2021-03-10T00:00:00.000Z", account_id: rh.id, cash: 100.0)
+d2929 = Day.create(date: "2021-03-10T00:00:00.000Z", account_id: fd.id,cash: 100.0)
+
+d30 = Day.create(date: "2021-03-11T00:00:00.000Z", account_id: rh.id, cash: 100.0)
+d3030 = Day.create(date: "2021-03-11T00:00:00.000Z", account_id: fd.id,cash: 100.0)
+
+d31 = Day.create(date: "2021-03-12T00:00:00.000Z", account_id: rh.id, cash: 100.0)
+d3131 = Day.create(date: "2021-03-12T00:00:00.000Z", account_id: fd.id,cash: 100.0)
+
+d32 = Day.create(date: "2021-03-13T00:00:00.000Z", account_id: rh.id, cash: 100.0)
+d3232 = Day.create(date: "2021-03-13T00:00:00.000Z", account_id: fd.id,cash: 100.0)
+
+d33 = Day.create(date: "2021-03-14T00:00:00.000Z", account_id: rh.id, cash: 100.0)
+d3333 = Day.create(date: "2021-03-14T00:00:00.000Z", account_id: fd.id,cash: 100.0)
+
+d34 = Day.create(date: "2021-03-15T00:00:00.000Z", account_id: rh.id, cash: 100.0)
+d3434 = Day.create(date: "2021-03-15T00:00:00.000Z", account_id: fd.id,cash: 100.0)
+
+
+
+
+
 
 
 s1 = Stock.create(day_id: d1.id, sector: "Autos", symbol: "TSLA", quantity: 5, price: 849.46)
@@ -185,5 +207,23 @@ s26s26 = Stock.create(day_id: d2626.id, sector: "Technology", symbol: "AAPL", qu
 s27 = Stock.create(day_id: d27.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 582.19)
 s27s27 = Stock.create(day_id: d2727.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 117.90)
 
-s28 = Stock.create(day_id: d28.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 582.19)
-s28s28 = Stock.create(day_id: d2828.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 117.90)
+s28 = Stock.create(day_id: d28.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 673.58)
+s28s28 = Stock.create(day_id: d2828.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 121.09)
+
+s29 = Stock.create(day_id: d29.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 668.06)
+s29s29 = Stock.create(day_id: d2929.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 119.98)
+
+s30 = Stock.create(day_id: d30.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 699.60)
+s30s30 = Stock.create(day_id: d3030.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 121.96)
+
+s31 = Stock.create(day_id: d31.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 693.73)
+s31s31 = Stock.create(day_id: d3131.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 121.03)
+
+s32 = Stock.create(day_id: d32.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 693.73)
+s32s32 = Stock.create(day_id: d3232.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 121.03)
+
+s33 = Stock.create(day_id: d33.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 693.73)
+s33s33 = Stock.create(day_id: d3333.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 121.03)
+
+s34 = Stock.create(day_id: d34.id, sector: "Autos", symbol: "TSLA", quantity: 43, price: 707.94)
+s34s34 = Stock.create(day_id: d3434.id, sector: "Technology", symbol: "AAPL", quantity: 5, price: 123.99)
